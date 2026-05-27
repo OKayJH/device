@@ -1,0 +1,59 @@
+############################################################
+# Platform / Boot
+############################################################
+RK_UBOOT_SPL=y
+RK_CHIP_FAMILY="rk3576"
+RK_KERNEL_CFG="lubancat_linux_rk3576_defconfig"
+RK_KERNEL_DTS_NAME="dlcvcam-rk3576"
+RK_KERNEL_CFG_FRAGMENTS="dlcvcam_rk3576_kernel_cut.config"
+RK_USE_FIT_IMG=y
+
+############################################################
+# Distribution
+############################################################
+RK_BUILDROOT=n
+RK_DEBIAN=y
+RK_DEBIAN_BOOKWORM=y
+RK_DEBIAN_ARM64=y
+
+############################################################
+# Mirror
+# Set the Debian mirror to use for package downloads
+#------------------------------------------------------------
+## Debian official mirror:
+#[1]deb.debian.org
+#------------------------------------------------------------
+## China mirror:
+#[1]mirrors.ustc.edu.cn
+#[2]mirrors.tuna.tsinghua.edu.cn
+#[3]mirrors.cloud.tencent.com
+############################################################
+#RK_DEBIAN_MIRROR="mirrors.ustc.edu.cn"
+#RK_DEBIAN_MIRROR="mirrors.tuna.tsinghua.edu.cn"
+#RK_DEBIAN_MIRROR="mirrors.cloud.tencent.com"
+RK_DEBIAN_MIRROR="mirrors.tuna.tsinghua.edu.cn"
+
+############################################################
+# Building Recovery Source
+# Your network is not able to access sources.buildroot.net!
+# 403 Forbidden
+# Enable the following configuration to disable the RECOVERY.
+############################################################
+RK_RECOVERY=n
+
+############################################################
+# Debian Targets
+############################################################
+RK_DEBIAN_TARGET_GNOME=y
+
+############################################################
+# WiFi/BT module removed from hardware
+############################################################
+RK_WIFIBT=n
+# RK_WIFIBT_MODULES="ALL_AP"
+
+############################################################
+# Using PCIe WiFi/Bluetooth (RTL8852BE) Modules
+############################################################
+# RK_WIFIBT_MODULES="RTL8852BE"
+# RK_WIFIBT_CHIP="RTL8852BE"
