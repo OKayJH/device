@@ -57,3 +57,17 @@ RK_WIFIBT=n
 ############################################################
 # RK_WIFIBT_MODULES="RTL8852BE"
 # RK_WIFIBT_CHIP="RTL8852BE"
+
+############################################################
+# Extra partition: dlcv
+# Python 环境（/root/dlcv）从 rootfs 剥离为独立 ext4 分区，
+# 由 mk-extra-parts.sh 打成 dlcv.img 并随 update.img 一起烧录。
+# SRC 指向构建期解压的环境暂存目录（debian12/mk-dlcv-part.sh 生成）。
+# SIZE=max：按 parameter.txt 中 dlcv 分区大小（3 GiB）打镜像。
+############################################################
+RK_EXTRA_PARTITION_NUM=3
+RK_EXTRA_PARTITION_3_NAME="dlcv"
+RK_EXTRA_PARTITION_3_EXT4=y
+RK_EXTRA_PARTITION_3_MOUNTPOINT="/root/dlcv"
+RK_EXTRA_PARTITION_3_SRC="/root/dlcv_rk3576_sdk/debian12/dlcv_part_src"
+RK_EXTRA_PARTITION_3_SIZE="max"
