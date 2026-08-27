@@ -64,7 +64,24 @@ build_firmware()
 		fi
 	done
 
+	# Board-specific finalization must run after boot.img is linked and before
+	# update.img is packed. DLCVCAM uses this to create its golden recovery FIT.
+	RECOVERY_GOLDEN="$RK_CHIP_DIR/scripts/prepare-recovery-golden.sh"
+	if [ -x "$RECOVERY_GOLDEN" ]; then
+		"$RECOVERY_GOLDEN" prepare \
+			"$RK_FIRMWARE_DIR/boot.img" \
+			"$RK_FIRMWARE_DIR/recovery.img"
+	fi
+
 	[ -z "$RK_UPDATE" ] || "$RK_SCRIPTS_DIR/mk-updateimg.sh"
+
+	if [ -x "$RECOVERY_GOLDEN" ] && [ -n "$RK_UPDATE" ]; then
+		"$RECOVERY_GOLDEN" verify-package \
+			"$RK_FIRMWARE_DIR/boot.img" \
+			"$RK_FIRMWARE_DIR/recovery.img" \
+			"$RK_OUTDIR/update/Image/package-file" \
+			"$RK_FIRMWARE_DIR/update.img"
+	fi
 
 	message "Images under $RK_FIRMWARE_DIR/ are ready!"
 
