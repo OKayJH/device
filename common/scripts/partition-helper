@@ -461,6 +461,8 @@ rk_extra_part_src()
 	for src in $(rk_extra_part_arg ${1:-1} 6 | tr ',' ' '); do
 		if [ -z "$src" -o "$src" = empty ]; then
 			return 0
+		elif [ -d "$RK_SDK_DIR/$src" ]; then
+			echo "$RK_SDK_DIR/$src"
 		elif echo "$src" | grep -q "^/"; then
 			echo "$src"
 		elif [ -d "$RK_CHIP_DIR/$PART_NAME/$src" ]; then
